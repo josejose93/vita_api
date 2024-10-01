@@ -1,0 +1,153 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/btc_price":
+    get:
+      summary: Get current BTC price
+      tags:
+      - Prices
+      responses:
+        '200':
+          description: price retrieved
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/BtcPriceResponse"
+        '503':
+          description: service unavailable
+  "/transactions":
+    post:
+      summary: Create a new transaction
+      tags:
+      - Transactions
+      parameters: []
+      responses:
+        '201':
+          description: transaction created
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/TransactionCreateInput"
+  "/transactions/{id}":
+    get:
+      summary: Get transaction details
+      tags:
+      - Transactions
+      parameters:
+      - name: id
+        in: path
+        description: Transaction ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: transactions found
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Transaction"
+        '404':
+          description: transaction not found
+  "/users/{user_id}/transactions":
+    get:
+      summary: List transactions of a user
+      tags:
+      - Transactions
+      parameters:
+      - name: user_id
+        in: path
+        description: User ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: transactions found
+          content:
+            application/json:
+              schema:
+                '': "#/components/schemas/TransactionList"
+        '404':
+          description: user not found
+servers:
+- url: http://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
+components:
+  schemas:
+    BtcPriceResponse:
+      type: object
+      properties:
+        btc_price_usd:
+          type: string
+      required:
+      - btc_price_usd
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        user_id:
+          type: integer
+        currency_sent:
+          type: string
+        currency_received:
+          type: string
+        amount_sent:
+          type: string
+        amount_received:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - user_id
+      - currency_sent
+      - currency_received
+      - amount_sent
+      - amount_received
+      - created_at
+      - updated_at
+    TransactionList:
+      type: array
+      items:
+        "$ref": "#/components/schemas/Transaction"
+    TransactionCreateInput:
+      type: object
+      properties:
+        user_id:
+          type: integer
+        currency_sent:
+          type: string
+          enum:
+          - USD
+          - BTC
+        currency_received:
+          type: string
+          enum:
+          - USD
+          - BTC
+        amount_sent:
+          type: number
+          format: float
+      required:
+      - user_id
+      - currency_sent
+      - currency_received
+      - amount_sent
