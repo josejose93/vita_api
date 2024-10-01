@@ -49,7 +49,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Test suite for Rails applications [https://rspec.info/]
-  gem "rspec-rails", "~> 6.0"
+  gem "rspec-rails", "~> 7.0"
   gem "rswag-specs"
   gem "factory_bot_rails"
   gem "faker"
