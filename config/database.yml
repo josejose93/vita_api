@@ -85,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: vita_api_production
-  username: vita_api
-  password: <%= ENV["VITA_API_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
