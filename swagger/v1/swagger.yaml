@@ -81,10 +81,10 @@ paths:
         '404':
           description: user not found
 servers:
-- url: http://{defaultHost}
+- url: https://{defaultHost}
   variables:
     defaultHost:
-      default: www.example.com
+      default: vita-api-603504249c56.herokuapp.com
 components:
   schemas:
     BtcPriceResponse:
