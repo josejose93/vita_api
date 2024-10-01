@@ -12,7 +12,7 @@
 #  updated_at        :datetime         not null
 #
 class TransactionSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :currency_sent, :currency_received, :amount_sent, :amount_received, :created_at
+  attributes :id, :user_id, :currency_sent, :currency_received, :amount_sent, :amount_received, :created_at, :updated_at
 
   def amount_sent
     format_amount(object.amount_sent, object.currency_sent)
