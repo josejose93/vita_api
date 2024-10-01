@@ -29,6 +29,12 @@ gem "bootsnap", require: false
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin Ajax possible
 gem "rack-cors"
 
+# Format JSON responses with Active Model Serializers
+gem "active_model_serializers"
+
+# Use dotenv to load environment variables from .env into ENV in development
+gem "dotenv-rails"
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
@@ -38,6 +44,18 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  # Test suite for Rails applications [https://rspec.info/]
+  gem "rspec-rails", "~> 6.0"
+  gem "factory_bot_rails"
+  gem "faker"
+
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "byebug", "~> 11.1"
+  # Pry is a powerful alternative to the standard IRB shell for Ruby
+  gem "pry", "~> 0.14"
 end
 
-
+group :development do
+  gem "annotate"
+end
